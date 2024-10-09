@@ -1,0 +1,39 @@
+/* personalizado */
+
+.header {
+    background-image: url("https://images.unsplash.com/photo-1508974239320-0a029497e820?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNhcnxlbnwwfHwwfHx8MA%3D%3D");
+    background-size: cover;
+    min-height: 100vh;
+  }
+
+.header .navbar {
+    background-color: transparent !important;
+  }
+
+  .fila{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .fila.centro{
+    justify-content: center;
+  }
+
+  .card-prod{
+    padding: 0 !important;
+    margin: 10px !important;
+    width: 18rem !important;
+  }
+
+  @media screen and (max-width:480px){
+    #titulo-header{
+        font-size: 3.5rem!important;
+    }
+
+    #texto-header{
+        font-size: 1rem!important;
+    }
+  }
+  
