@@ -150,15 +150,7 @@ This API provides functionalities for both public users and vendors to interact 
 
 ## Error Handling
 
-Standard error responses should include:
-
 - **400 Bad Request**: Invalid request parameters.
 - **401 Unauthorized**: Authentication failed or token expired.
 - **404 Not Found**: Resource not found.
 - **500 Internal Server Error**: Unexpected server error.
-
----
-
-## Conclusion
-
-This API enables a seamless interaction between public users and vendors in a car marketplace, providing essential functionalities for viewing, managing, and offering cars.
