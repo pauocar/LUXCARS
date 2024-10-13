@@ -1,3 +1,3 @@
 LUXCARS pagina web
 
-un poryecto bonito :)
+un proyecto bonito :)

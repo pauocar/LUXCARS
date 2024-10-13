@@ -1,0 +1,23 @@
+.gallery-container {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  padding: 0px;
+}
+
+.sub-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin: 2.5px; /* Margen de 2.5px en todas las direcciones */
+}
+
+.row {
+  --bs-gutter-x: 0.44rem; /* Ajusta el valor según sea necesario */
+}
