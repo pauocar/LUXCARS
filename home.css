@@ -37,3 +37,7 @@
     }
   }
   
+  .centrar{
+    width: 50%;
+    margin: auto auto!important;
+  }
