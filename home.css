@@ -35,9 +35,18 @@
     #texto-header{
         font-size: 1rem!important;
     }
+
+    .centrar{
+      width: 100%;
+      margin: auto auto!important;
+    }
+  }
+
+  @media screen and (min-width: 481px) {
+    .centrar{
+      width: 50%;
+      margin: auto auto!important;
+    }
   }
   
-  .centrar{
-    width: 50%;
-    margin: auto auto!important;
-  }
+ 
