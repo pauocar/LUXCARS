@@ -31,12 +31,17 @@ This API provides functionalities for both public users and vendors to interact 
 - **Description**: Allows a public user to create a new offer for a car.
 - **Request Body**:
   - `carId`: The ID of the car for which the offer is being made.
-  - `amount`: The amount of the offer.
+  - `email`: The buyer email where the vendor can contact him
   - `message`: (optional) A message from the user.
+    
+### 4. Get image
 
+- **Endpoint**: `GET /image/{id}`
+- **Description**: Retrieves an image.
+  
 ---
 
-## Vendor API
+## Authentication
 
 ### 1. Login
 
@@ -51,7 +56,13 @@ This API provides functionalities for both public users and vendors to interact 
 - **Endpoint**: `POST /auth/logout`
 - **Description**: Invalidates the vendor's JWT token.
 
-### 3. Publish a Car
+---
+
+## Vendor API
+
+All of the Vendor API requiere the user to have auth.
+
+### 1. Publish a Car
 
 - **Endpoint**: `POST /vendors/cars`
 - **Description**: Allows a vendor to publish a new car.
@@ -60,16 +71,17 @@ This API provides functionalities for both public users and vendors to interact 
   - `model`: The model of the car.
   - `year`: The year of manufacture.
   - `price`: The price of the car.
+  - `images`: List of images.
   - `description`: (optional) A description of the car.
 
-### 4. Delete a Car
+### 2. Delete a Car
 
 - **Endpoint**: `DELETE /vendors/cars/{id}`
 - **Description**: Deletes a specific car from the vendor's listings.
 - **Parameters**:
   - `id`: The unique identifier of the car.
 
-### 5. Edit Car Details
+### 3. Edit Car Details
 
 - **Endpoint**: `PUT /vendors/cars/{id}`
 - **Description**: Updates the details of a specific car.
@@ -80,72 +92,47 @@ This API provides functionalities for both public users and vendors to interact 
   - `model`: (optional) The model of the car.
   - `year`: (optional) The year of manufacture.
   - `price`: (optional) The price of the car.
+  - `images`: (optional) Lis of images.
   - `description`: (optional) A description of the car.
 
-### 6. View All Cars
+### 4. View All Cars
 
 - **Endpoint**: `GET /vendors/cars`
 - **Description**: Retrieves a list of all cars published by the vendor.
 
-### 7. View Offers for a Specific Car
+### 5. View Offers for a Specific Car
 
 - **Endpoint**: `GET /vendors/cars/{id}/offers`
 - **Description**: Retrieves all offers made for a specific car.
 - **Parameters**:
   - `id`: The unique identifier of the car.
 
----
-
-## Authentication
-
-### 1. Login
-
-- **Request**: `POST /auth/login`
-- **Response**: Generates a JWT token for authenticated vendors.
-
-### 2. Logout
-
-- **Request**: `POST /auth/logout`
-- **Response**: Invalidates the JWT token.
-
----
-
-## Car Management
-
-### 1. Add New Car
-
-- **Request**: `POST /vendors/cars`
-- **Database Operation**: Adds a new car entry to the database.
-
-### 2. Remove Car
-
-- **Request**: `DELETE /vendors/cars/{id}`
-- **Database Operation**: Removes the specified car from the database.
-
-### 3. Update Car Details
-
-- **Request**: `PUT /vendors/cars/{id}`
-- **Database Operation**: Updates the details of the specified car in the database.
-
-### 4. Fetch Vendor's Cars
-
-- **Request**: `GET /vendors/cars`
-- **Database Operation**: Retrieves all cars listed by the vendor.
-
----
-
-## Offers Management
-
-### 1. Create New Offer
-
-- **Request**: `POST /offers`
-- **Database Operation**: Creates a new offer in the database.
-
-### 2. Fetch Offers for a Specific Car
+### 6. Fetch Offers for a Specific Car
 
 - **Request**: `GET /vendors/cars/{id}/offers`
-- **Database Operation**: Retrieves all offers associated with the specified car.
+- **Description**: Retrieves all offers associated with the specified car.
 
+  
+### 7. Upload an image
+
+- **Endpoint**: `PUT /vendors/image/`
+- **Description**: Uploads an image.
+- **Parameters**:
+  - `image`: Uploads an image.
+  - `name`: Image name.
+
+### 8. Upload an image
+
+- **Endpoint**: `GET /vendors/imagelist`
+- **Description**: Lists all images uploaded by a vendor.
+
+### 9. Delete an image
+
+- **Endpoint**: `DELETE /vendors/image`
+- **Description**: Deletes an image.
+- **Parameters**
+  - `id` image Id to delete
+  
 ---
 
 ## Error Handling
