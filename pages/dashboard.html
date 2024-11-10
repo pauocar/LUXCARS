@@ -8,7 +8,12 @@
     <!-- css tema -->
     <link rel="stylesheet" href="../styles/styles.css" />
     <!-- css tema -->
-
+    <script>
+      // Redirect to index.html if not logged in
+      if (!localStorage.getItem("authToken")) {
+        window.location.href = "../index.html";
+      }
+    </script>
     <title>Luxcars</title>
   </head>
 
@@ -29,8 +34,8 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a
+                id="logoutBtn"
                 class="nav-link text-danger"
-                href="logout.html"
                 title="Cerrar sesión"
               >
                 <i class="bi bi-box-arrow-right" style="font-size: 1.5rem"></i>
@@ -41,33 +46,15 @@
       </nav>
     </header>
 
-    <div class="container-md mt-2">
-      <h2>Mis Luxcars</h2>
-      <div class="d-flex justify-content-end mb-4">
-        <button class="btn btn-success">
+    <div class="container my-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Mis Autos</h1>
+        <button id="addCarBtn" class="btn btn-success">
           <i class="bi bi-plus-circle"></i> Nuevo
         </button>
       </div>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        <div class="col">
-          <a class="card btn btn-primary text-decoration-none" href="edit.html">
-            <div class="card-body text-center">
-              <h5 class="card-title">Modelo</h5>
-              <h5 class="card-title">Marca</h5>
-              <p class="card-text">$xxxxx.xx</p>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a class="card btn btn-primary text-decoration-none" href="edit.html">
-            <div class="card-body text-center">
-              <h5 class="card-title">Modelo</h5>
-              <h5 class="card-title">Marca</h5>
-              <p class="card-text">$xxxxx.xx</p>
-            </div>
-          </a>
-        </div>
-      </div>
+
+      <div id="vendorCarsResponse" class="row"></div>
     </div>
 
     <!-- Footer -->
@@ -89,6 +76,7 @@
     </div>
     <!-- Fin Footer -->
 
+    <script type="module" src="../js/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
