@@ -6,8 +6,12 @@ const displayCars = (cars) => {
     const carsContainer = document.getElementById('getFourCarsResponse');
     carsContainer.innerHTML = '';
 
-    
-    cars.forEach(car => {
+    const start = cars.length - 4;
+    const showLastFour = cars.slice (start, cars.length);
+    // const result = cars.slice(0,4);
+
+    showLastFour.forEach(car => {
+        
         const carCard = document.createElement('div');
         carCard.classList.add('card', 'card-prod');
 
@@ -23,6 +27,8 @@ const displayCars = (cars) => {
         `;
 
         carsContainer.appendChild(carCard);
+        cars.slice(0, 1);
+    
     });
 };
 
