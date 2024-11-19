@@ -1,0 +1,73 @@
+const displayCarImages = (cars) => {
+    const carsImages = document.getElementById('displayImages');
+    carsImages.innerHTML = '';
+
+    console.log("hello");
+    
+    cars.foreach(car => {
+        console.log(car._id);
+
+        const carDetailsImg = document.createElement('div');
+        carDetailsImg.classList.add('row');
+
+        const firstImage = car.images.length > 0 ? `${car.images[0]}` : 'https://via.placeholder.com/150';
+        const secondImage = car.images.length > 0 ? `${car.images[1]}` : 'https://via.placeholder.com/150';
+        const thirdImage = car.images.length > 0 ? `${car.images[2]}` : 'https://via.placeholder.com/150';
+        const fourthImage = car.images.length > 0 ? `${car.images[3]}` : 'https://via.placeholder.com/150';
+        const fifthImage = car.images.length > 0 ? `${car.images[4]}` : 'https://via.placeholder.com/150';
+
+        carDetailsImg.innerHTML = `
+            <h5>Hello</h5>
+            <!-- Sección Izquierda - Imagen Principal -->
+            <div class="col-lg-6 main-image">
+            <img
+                src="${firstImage}"
+                alt="${car.make}"
+                class="img-fluid"
+            />
+            </div>
+            <!-- Sección Derecha - Galería de Imágenes -->
+            <div class="col-lg-6">
+            <div class="row">
+                <!-- Sección Superior - Dos Imágenes -->
+                <div class="col-6 sub-image">
+                <img
+                    src="${secondImage}"
+                    alt="${car.make}"
+                    class="img-fluid"
+                />
+                </div>
+                <div class="col-6 sub-image">
+                <img
+                    src="${thirdImage}"
+                    alt="${car.make}"
+                    class="img-fluid"
+                />
+                </div>
+            </div>
+            <div class="row">
+                <!-- Sección Inferior - Dos Imágenes -->
+                <div class="col-6 sub-image">
+                <img
+                    src="${fourthImage}"
+                    alt="${car.make}"
+                    class="img-fluid"
+                />
+                </div>
+                <div class="col-6 sub-image">
+                <img
+                    src="${fifthImage}"
+                    alt="${car.make}"
+                    class="img-fluid"
+                />
+                </div>
+            </div>
+            </div>
+           
+        `;
+
+        carsImages.appendChild(carDetailsImg);
+
+    });
+
+};

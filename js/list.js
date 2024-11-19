@@ -18,7 +18,7 @@ const displayCars = (cars) => {
             <div class="card-body text-center">
                 <h5 class="card-title">${car.make} ${car.model} (${car.year})</h5>
                 <p class="card-text">$${car.price}</p>
-                <a href="cars/${car._id}" class="btn btn-outline-primary">Ver luxcar</a>
+                <a href="detail.html?id=${car._id}" class="btn btn-outline-primary">Ver luxcar</a>
             </div>
         `;
 
