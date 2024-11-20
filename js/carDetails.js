@@ -151,13 +151,9 @@ document.getElementById('createOffer').addEventListener('submit', async (e) => {
     e.preventDefault();
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
-    const carId = urlParams.get('id');
-
-    const data = {
-        email: document.getElementById('offerEmail').value,
-        message: document.getElementById('offerMessage').value,
-        car: carId,
-    };
+    const car = urlParams.get('id');
+    const email = document.getElementById('offerEmail').value;
+    const message = document.getElementById('offerMessage').value;
     
     // const formData = new FormData();
     // formData.append('email', document.getElementById('offerEmail').value);
@@ -172,7 +168,9 @@ document.getElementById('createOffer').addEventListener('submit', async (e) => {
       headers: {
         headers: { 'Content-Type': 'application/json' },
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        email, message, car
+      })
 
     });
   
