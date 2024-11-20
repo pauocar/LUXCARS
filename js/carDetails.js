@@ -152,23 +152,33 @@ document.getElementById('createOffer').addEventListener('submit', async (e) => {
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
     const carId = urlParams.get('id');
+
+    const data = {
+        email: document.getElementById('offerEmail').value,
+        message: document.getElementById('offerMessage').value,
+        car: carId,
+    };
     
-    const formData = new FormData();
-    formData.append('email', document.getElementById('offerEmail').value);
-    formData.append('message', document.getElementById('offerMessage').value);
-    formData.append('car', carId);
+    // const formData = new FormData();
+    // formData.append('email', document.getElementById('offerEmail').value);
+    // formData.append('message', document.getElementById('offerMessage').value);
+    // formData.append('car', carId);
+
+    // console.log(formData);
+
   
-    const response = await fetch(`${API_URL}/offers`, {
+    const response = await fetch(`${API_URL}/cars/offers`, {
       method: 'POST',
-    //   headers: {
-    //     headers: { 'Content-Type': 'application/json' },
-    //   },
-      body: formData
+      headers: {
+        headers: { 'Content-Type': 'application/json' },
+      },
+      body: JSON.stringify(data)
+
     });
   
     
-    const data = await response.json();
-    displayResponse('offerResponse', data);
+    // const data = await response.json();
+    // displayResponse('offerResponse', data);
 
-    console.log(data);
+    console.log(response);
   });
