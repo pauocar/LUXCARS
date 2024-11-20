@@ -64,8 +64,8 @@
           "
         >
           <p><strong>Vendedor:</strong> Juan Pérez</p>
-          <form>
-            <div class="mb-3">
+          <form id="createOffer" method="POST">
+            <!-- <div class="mb-3">
               <label for="name" class="form-label">Nombre</label>
               <input
                 type="text"
@@ -73,32 +73,32 @@
                 id="name"
                 placeholder="Ingresa tu nombre"
               />
-            </div>
+            </div> -->
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
+              <label for="offerEmail" class="form-label" >Email</label>
               <input
                 type="email"
                 class="form-control"
-                id="email"
+                id="offerEmail"
                 placeholder="Ingresa tu email"
               />
             </div>
             <div class="mb-3">
-              <label for="comments" class="form-label">Comentarios</label>
+              <label for="offerMessage" class="form-label">Comentarios</label>
               <textarea
                 class="form-control"
-                id="comments"
+                id="offerMessage"
                 rows="3"
                 placeholder="Escribe tus comentarios"
               ></textarea>
             </div>
             <button
-              type="submit"
-              class="btn btn-outline-primary"
-              style="width: 100%"
-            >
-              Contactar
-            </button>
+                action="submit"
+                class="btn btn-outline-primary"
+                style="width: 100%"
+              >
+                Contactar
+              </button>
           </form>
         </div>
       </div>

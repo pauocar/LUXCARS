@@ -42,7 +42,6 @@ const fetchDetails = async() => {
 
     const data = await response.json();
 
-    console.log(data);
     if (response) {
 
         const firstImage = data.images.length > 0 ? `${API_URL}/${data.images[0]}` : 'https://via.placeholder.com/150';
@@ -105,7 +104,7 @@ const fetchDetails = async() => {
         document.getElementById('datosAuto').innerHTML = `
         <!-- Primera Sección: Modelo y Precio -->
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="h6">2024${data.make} ${data.model}</h3>
+            <h3 class="h6">${data.year} ${data.make} ${data.model}</h3>
             <!-- Cambia esto al modelo real -->
             <h3 class="h5">$${data.price}</h3>
             <!-- Cambia esto al precio real -->
@@ -121,14 +120,14 @@ const fetchDetails = async() => {
               <h6>${data.year}</h6>
               <p>Año</p>
             </div>
-            <!--<div class="col">
+            <!--  <div class="col">
               <h6>1213 km</h6>
               <p>Kilometraje</p>
             </div>
             <div class="col">
               <h6>Plano, TX, United States</h6>
               <p>Ubicación</p>
-            </div>-->
+            </div>  -->
           </div>
           <hr />
           <!-- Tercera Sección: Descripción -->
@@ -144,5 +143,32 @@ const fetchDetails = async() => {
     }
 };
 
+
 // Call function to load index on page load
 window.onload = fetchDetails;
+
+document.getElementById('createOffer').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = window.location.search;
+    const urlParams = new URLSearchParams(url);
+    const carId = urlParams.get('id');
+    
+    const formData = new FormData();
+    formData.append('email', document.getElementById('offerEmail').value);
+    formData.append('message', document.getElementById('offerMessage').value);
+    formData.append('car', carId);
+  
+    const response = await fetch(`${API_URL}/offers`, {
+      method: 'POST',
+    //   headers: {
+    //     headers: { 'Content-Type': 'application/json' },
+    //   },
+      body: formData
+    });
+  
+    
+    const data = await response.json();
+    displayResponse('offerResponse', data);
+
+    console.log(data);
+  });
