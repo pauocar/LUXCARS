@@ -1,3 +1,4 @@
+import { logout } from './auth.js';
 import { API_URL } from './config.js';  // Import the global API_URL
 
 // Display car Details
@@ -26,6 +27,9 @@ function displayImage (data){
 
 };
 
+const url = window.location.search;
+const urlParams = new URLSearchParams(url);
+const carId = urlParams.get('id');
 
 // Fetch Details
 const fetchDetails = async() => {
@@ -35,9 +39,6 @@ const fetchDetails = async() => {
         return;
     }
 
-    const url = window.location.search;
-    const urlParams = new URLSearchParams(url);
-    const carId = urlParams.get('id');
     if (carId==null) {
         console.log("NO ID");
         return;
@@ -108,6 +109,31 @@ const fetchDetails = async() => {
     }
 };
 
+
+document.getElementById("delete-car").addEventListener("click", async ()=> {const token = localStorage.getItem('authToken');
+    if (!token) {
+        alert("Error with authorization")
+        return;
+    }
+    const response = await fetch(`${API_URL}/cars/vendors/cars/${carId}`, {
+        method: 'DELETE',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    const data = await response.json();
+
+    if (response && data.message && data.message === "Car deleted") {        
+        window.location.href = './dashboard.html'; // Redirect after deleting car
+    } else {        
+        alert("Error deleting car" + JSON.stringify(data))
+    }
+})
+
+
+document.getElementById('logoutBtn').addEventListener('click', logout);
 
 // Call function to load index on page load
 window.onload = fetchDetails;
