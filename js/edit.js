@@ -31,6 +31,8 @@ const url = window.location.search;
 const urlParams = new URLSearchParams(url);
 const carId = urlParams.get('id');
 
+const images=[]
+
 // Fetch Details
 const fetchDetails = async() => {
     const token = localStorage.getItem('authToken');
@@ -59,16 +61,11 @@ const fetchDetails = async() => {
 
     if (response) {
 
-        const firstImage = data.images.length > 0 ? `${API_URL}/${data.images[0]}` : 'https://via.placeholder.com/150';
-        const secondImage = data.images.length > 0 ? `${API_URL}/${data.images[1]}` : 'https://via.placeholder.com/150';
-        const thirdImage = data.images.length > 0 ? `${API_URL}/${data.images[2]}` : 'https://via.placeholder.com/150';
-        const fourthImage = data.images.length > 0 ? `${API_URL}/${data.images[3]}` : 'https://via.placeholder.com/150';
-        const fifthImage = data.images.length > 0 ? `${API_URL}/${data.images[4]}` : 'https://via.placeholder.com/150';
-        document.getElementById('img-0').setAttribute("src",firstImage);
-        document.getElementById('img-1').setAttribute("src",secondImage);
-        document.getElementById('img-2').setAttribute("src",thirdImage);
-        document.getElementById('img-3').setAttribute("src",fourthImage);
-        document.getElementById('img-4').setAttribute("src",fifthImage);
+        for (let i=0; i < 5; i++) {
+            const img = (data.images.length > i ? `${API_URL}/${data.images[i]}` : 'https://via.placeholder.com/150');
+            document.getElementById(`img-${i}`).setAttribute("src",img);
+            images.push(data.images[i])
+        }
         document.getElementById('make').value = data.make;
         document.getElementById('model').value = data.model;
         document.getElementById('year').value = data.year;
@@ -130,6 +127,35 @@ document.getElementById("delete-car").addEventListener("click", async ()=> {cons
     } else {        
         alert("Error deleting car" + JSON.stringify(data))
     }
+})
+
+document.getElementById("update-btn").addEventListener("click", async ()=> {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        alert("Error with authorization")
+        return;
+    }
+    const formData = new FormData();
+    formData.append('make', document.getElementById('make').value);
+    formData.append('model', document.getElementById('model').value);
+    formData.append('year', document.getElementById('year').value);
+    formData.append('price', document.getElementById('price').value);
+    formData.append('description', document.getElementById('description').value);
+    for (let i=0; i < 5; i++) {
+        formData.append('images', images[i]);
+    }
+
+    const response = await fetch(`${API_URL}/cars/vendors/cars/${carId}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData
+    });
+
+    const data = response.json();
+    console.log(data);
+
 })
 
 
