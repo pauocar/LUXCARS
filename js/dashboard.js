@@ -18,6 +18,7 @@ const displayCars = (cars) => {
             <h5 class="card-title">${car.make} ${car.model} (${car.year})</h5>
             <h6 class="card-subtitle mb-2 text-muted">$${car.price}</h6>
             <p class="card-text">${car.description}</p>
+            <a href="./edit.html?id=${car._id}" class="btn btn-primary stretched-link">Detalles</a>
           </div>
         </div>
       `;
