@@ -165,9 +165,9 @@ document.getElementById('createOffer').addEventListener('submit', async (e) => {
   
     const response = await fetch(`${API_URL}/cars/offers`, {
       method: 'POST',
-      headers: {
-        headers: { 'Content-Type': 'application/json' },
-      },
+      
+      headers: { 'Content-Type': 'application/json' },
+      
       body: JSON.stringify({
         email, message, car
       })
