@@ -29,6 +29,11 @@ function displayImage (data){
 
 // Fetch Details
 const fetchDetails = async() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        window.location.href = '../index.html'; // Redirect to login if not authenticated
+        return;
+    }
 
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
@@ -37,14 +42,19 @@ const fetchDetails = async() => {
         console.log("NO ID");
         return;
     }
+    document.getElementById("id-tag").innerText = carId;
     // console.log(carId);
 
     const response = await fetch(`${API_URL}/cars/${carId}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
     });
 
     const data = await response.json();
+    const table = document.getElementById("table-body");
 
     if (response) {
 
@@ -64,45 +74,40 @@ const fetchDetails = async() => {
         document.getElementById('price').value = data.price;
         document.getElementById('description').value = data.description;
         
+        
     } else {
         document.getElementById('displayImages').innerHTML = `<p>${data.message}</p>`;
+        return;
+    }
+    
+    table.innerHTML = ""
+    const offerResponse = await fetch(`${API_URL}/cars/vendors/cars/${carId}/offers`, {
+        method: 'GET',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+        },
+    });
+    
+    const offers = await offerResponse.json();
+    if (offerResponse) {
+        console.log(offers)
+        for (const offer of offers) {
+            const offerRow = document.createElement('tr');
+            offerRow.innerHTML = `
+                <td>${offer.email}</td>
+                <td>${offer.message}</td>
+            `;
+
+            table.appendChild(offerRow)
+
+        }
+    } else {
+        document.getElementById('displayImages').innerHTML = `<p>${data.message}</p>`;
+        return;
     }
 };
 
 
 // Call function to load index on page load
 window.onload = fetchDetails;
-
-document.getElementById('createOffer').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const url = window.location.search;
-    const urlParams = new URLSearchParams(url);
-    const car = urlParams.get('id');
-    const email = document.getElementById('offerEmail').value;
-    const message = document.getElementById('offerMessage').value;
-    
-    // const formData = new FormData();
-    // formData.append('email', document.getElementById('offerEmail').value);
-    // formData.append('message', document.getElementById('offerMessage').value);
-    // formData.append('car', carId);
-
-    // console.log(formData);
-
-  
-    const response = await fetch(`${API_URL}/cars/offers`, {
-      method: 'POST',
-      headers: {
-        headers: { 'Content-Type': 'application/json' },
-      },
-      body: JSON.stringify({
-        email, message, car
-      })
-
-    });
-  
-    
-    // const data = await response.json();
-    // displayResponse('offerResponse', data);
-
-    console.log(response);
-  });
