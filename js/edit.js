@@ -142,7 +142,13 @@ document.getElementById("update-btn").addEventListener("click", async ()=> {
     formData.append('price', document.getElementById('price').value);
     formData.append('description', document.getElementById('description').value);
     for (let i=0; i < 5; i++) {
-        formData.append('images', images[i]);
+        const imgInput = document.getElementById(`input-${i}`);
+        if (!imgInput.files || imgInput.files.length === 0) {
+            formData.append('images', images[i]);
+            continue;
+        }
+        formData.append('images', '<change>')
+        formData.append('uploads', imgInput.files[0]);
     }
 
     const response = await fetch(`${API_URL}/cars/vendors/cars/${carId}`, {
@@ -158,6 +164,27 @@ document.getElementById("update-btn").addEventListener("click", async ()=> {
 
 })
 
+
+document.getElementById('imgModal').addEventListener('hide.bs.modal', ()=> {
+    for (let i = 0; i < 5; i++) {
+        const imgInput = document.getElementById(`input-${i}`);
+        const imgElement = document.getElementById(`img-${i}`); // Get the corresponding img element
+        if (!imgInput.files || imgInput.files.length === 0) {
+            imgElement.src = `${API_URL}/${images[i]}`;
+            continue; // If no file is selected, exit the loop
+        }
+        
+        const file = imgInput.files[0]; // Get the first file
+        
+        if (imgElement) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imgElement.src = e.target.result; // Set the image src to the file data
+            };
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
+    }
+})
 
 document.getElementById('logoutBtn').addEventListener('click', logout);
 
