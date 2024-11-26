@@ -177,6 +177,12 @@ document.getElementById('createOffer').addEventListener('submit', async (e) => {
     
     // const data = await response.json();
     // displayResponse('offerResponse', data);
+    if (response.status === 201) {
+      document.getElementById('offerEmail').value = "";
+      document.getElementById('offerMessage').value = "";
+      alert("Oferta creada exitosamente")
+    } else {
+      alert("Error creando la oferta")
 
-    console.log(response);
+    }
   });
